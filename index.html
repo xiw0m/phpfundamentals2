@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canteen Order</title>
+<script>
+function calculateOrder(event) {
+  // Prevent default form submission
+  event.preventDefault();
+
+  // Get values from the form
+  var order = document.getElementById("order").value;
+  var quantity = parseInt(document.getElementById("quantity").value);
+  var cash = parseInt(document.getElementById("cash").value);
+
+  // Define food prices (you can modify these values)
+  var fishballPrice = 30;
+  var kikiamPrice = 40;
+  var corndogPrice = 50;
+
+  // Calculate total cost based on selection
+  var totalPrice;
+  if (order === "fishball") {
+    totalPrice = fishballPrice * quantity;
+  } else if (order === "kikiam") {
+    totalPrice = kikiamPrice * quantity;
+  } else if (order === "corndog") {
+    totalPrice = corndogPrice * quantity;
+  }
+
+  // Calculate change
+  var change = cash - totalPrice;
+
+  // Update the results on the page
+  document.getElementById("totalCost").textContent = "Total Cost: " + totalPrice + " PHP";
+  document.getElementById("change").textContent = "Change: " + change + " PHP";
+
+  // Hide the form and intro section after calculation
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("form-container").style.display = "none";
+}
+</script>
+</head>
+<body>
+<div id="intro">
+<h1>Welcome to the canteen! Here are the prices</h1>
+<ul>
+  <li>Fishball - 30 PHP</li>
+  <li>Kikiam - 40 PHP</li>
+  <li>Corndog - 50 PHP</li>
+</ul>
+</div>
+<div id="form-container">
+<form onsubmit="return calculateOrder(event)">
+  <label for="order">Choose your order:</label>
+  <select id="order" name="order">
+    <option value="fishball">Fishball</option>
+    <option value="kikiam">Kikiam</option>
+    <option value="corndog">Corndog</option>
+  </select>
+  <br>
+  <label for="quantity">Quantity:</label>
+  <input type="number" id="quantity" name="quantity" min="1">
+  <br>
+  <label for="cash">Cash:</label>
+  <input type="number" id="cash" name="cash" min="0">
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+<p id="totalCost"></p>
+<p id="change"></p>
+</body>
+</html>
